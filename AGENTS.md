@@ -1,7 +1,6 @@
 # Agent instructions
 
-This repo holds Coastal-Carbon's org-wide GitHub defaults: the PR template
-and the reusable "PR description" check. Keep it small; every repo in the org
+This repo holds hum.ai's organization-wide GitHub defaults. Keep it small; every repo in the org
 depends on `main` here.
 
 ## Pull request descriptions
