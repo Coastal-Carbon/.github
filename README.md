@@ -1,8 +1,8 @@
 # Coastal-Carbon org defaults
 
 Every pull request in this organization has the same shape: a summary written
-by a person at the top, then the line `AI Generated Below`, then whatever the
-agent wrote. The human part says what changed and why. The agent part is the
+by a person at the top, then the separator line `🙂 ↑ ────────────────────────── ↓ 🤖`,
+then whatever the agent wrote. The human part says what changed and why. The agent part is the
 record. A reader can always tell which is which.
 
 This repo makes that happen in two ways:
@@ -10,8 +10,8 @@ This repo makes that happen in two ways:
 - **The default PR template** (`.github/pull_request_template.md`) fills the
   description box in any repo that has no template of its own.
 - **The reusable check** (`.github/workflows/pr-description.yml`) fails a PR
-  whose marker line is missing or repeated, or whose human part is empty once
-  whitespace, HTML comments and the `---` rule are ignored. A second job
+  whose separator line is missing or repeated, or whose human part is empty once
+  whitespace and HTML comments are ignored. A second job
   checks that the repo has an `AGENTS.md` and that `CLAUDE.md`, if present,
   is exactly `@AGENTS.md`.
 
@@ -39,14 +39,15 @@ PR description only; it never reads the diff.
 ```markdown
 What changed and why, in your own words.
 
----
-AI Generated Below
+🙂 ↑ ────────────────────────── ↓ 🤖
 
 Whatever the agent wrote.
 ```
 
-The blank line before `---` matters: without it, GitHub markdown turns the
-line above into a heading.
+The separator is plain text to markdown, so it needs no blank lines around it
+and cannot be mistaken for a heading. A hand-typed version still counts: the
+check accepts either icon without its arrow, a line of any length, and any
+spacing, as long as it reads human icon, line, robot icon.
 
 ## Design
 

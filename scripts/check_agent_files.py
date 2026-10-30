@@ -12,11 +12,13 @@ from pathlib import Path
 
 STANZA = """## Pull request descriptions
 
-A PR body has a human-written summary above the line `AI Generated Below`
+A PR body has a human-written summary above the separator line
+
+🙂 ↑ ────────────────────────── ↓ 🤖
+
 and an agent-written section below it. Put everything you write, including
 your summary of the change, below the line. Never edit text above it. If you
-open the PR, leave the human part empty; do not draft it. Leave a blank line
-before the `---` that precedes the marker.
+open the PR, leave the human part empty; do not draft it.
 """
 
 CLAUDE_MD = "@AGENTS.md"

@@ -1,4 +1,4 @@
-"""Check that a PR body has a human-written summary above the marker line.
+"""Check that a PR body has a human-written summary above the separator line.
 
 Reads the body from the PR_BODY environment variable. Exit 1 with one reason
 per line when the body does not follow the convention. Bot-authored PRs are
@@ -12,23 +12,24 @@ import os
 import re
 import sys
 
-MARKER = "AI Generated Below"
+MARKER = "🙂 ↑ ────────────────────────── ↓ 🤖"
+# A hand-typed separator still counts: either icon may lack its arrow, the
+# line may be any length, and spacing is free.
+_MARKER_LINE = re.compile(r"^\s*🙂\s*(?:[↑⬆]\ufe0f?)?\s*─+\s*(?:[↓⬇]\ufe0f?)?\s*🤖\s*$")
 _HTML_COMMENT = re.compile(r"<!--.*?-->", re.S)
-_RULE_LINE = re.compile(r"^\s*-{3,}\s*$", re.M)  # the horizontal rule above the marker
 
 
 def check(body: str | None, author_type: str) -> tuple[bool, list[str]]:
     if author_type == "Bot":
         return True, ["skipped: bot author"]
     lines = (body or "").splitlines()
-    marker_lines = [i for i, line in enumerate(lines) if line.strip() == MARKER]
+    marker_lines = [i for i, line in enumerate(lines) if _MARKER_LINE.match(line)]
     if len(marker_lines) != 1:
         return False, [
-            f"expected the marker line '{MARKER}' exactly once, found {len(marker_lines)}"
+            f"expected the separator line {MARKER} exactly once, found {len(marker_lines)}"
         ]
     above = "\n".join(lines[: marker_lines[0]])
-    text = _RULE_LINE.sub("", _HTML_COMMENT.sub("", above))
-    if not text.strip():
+    if not _HTML_COMMENT.sub("", above).strip():
         return False, ["the human-written summary above the marker is empty"]
     return True, []
 
@@ -44,9 +45,8 @@ def main() -> int:
         print("ok: human summary present above the marker" if not reasons else "ok")
         return 0
     print()
-    print("A PR description is a human-written summary, a blank line, then:")
+    print("A PR description is a human-written summary, then the separator line")
     print()
-    print("---")
     print(MARKER)
     print()
     print("followed by anything the agent wrote. Edit the description and the check re-runs.")
