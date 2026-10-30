@@ -1,5 +1,7 @@
 # Coastal-Carbon org defaults
 
+[![Tests](https://github.com/Coastal-Carbon/.github/actions/workflows/tests.yml/badge.svg)](https://github.com/Coastal-Carbon/.github/actions/workflows/tests.yml)
+
 Every pull request in this organization has the same shape: a summary written
 by a person at the top, then the separator line `🙂 ↑ ────────────────────────── ↓ 🤖`,
 then whatever the agent wrote. The human part says what changed and why. The agent part is the
