@@ -35,9 +35,10 @@ This repository makes that happen in two ways:
   description box in any repository that has no template of its own.
 - **The reusable check** (`.github/workflows/pr-description.yml`) fails a PR
   whose separator line is missing or repeated, or whose human part is empty
-  once whitespace and HTML comments are ignored. A second job checks that the
-  repository has an `AGENTS.md` and that `CLAUDE.md`, if present, is exactly
-  `@AGENTS.md`, so agent instructions have one home.
+  once whitespace and HTML comments are ignored. A second step in the same
+  job checks that the repository has an `AGENTS.md` and that `CLAUDE.md`, if
+  present, is exactly `@AGENTS.md`, so agent instructions have one home. One
+  job means one status check for a repository to require.
 
 To call the check from a repository, add `.github/workflows/pr-description.yml`:
 
