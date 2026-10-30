@@ -1,7 +1,7 @@
 [project]
-name = "coastal-carbon-dot-github"
+name = "hum-ai-dot-github"
 version = "0"
-description = "Org-wide GitHub defaults: PR template and the PR description check"
+description = "hum.ai GitHub defaults: PR template and the PR description check"
 requires-python = ">=3.12"
 
 [tool.pytest.ini_options]
