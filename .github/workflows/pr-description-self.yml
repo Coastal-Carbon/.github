@@ -1,0 +1,10 @@
+# This repo calls its own reusable workflow, so a PR here exercises the check.
+name: PR description (self)
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+
+jobs:
+  check:
+    uses: ./.github/workflows/pr-description.yml

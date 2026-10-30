@@ -1,0 +1,8 @@
+[project]
+name = "coastal-carbon-dot-github"
+version = "0"
+description = "Org-wide GitHub defaults: PR template and the PR description check"
+requires-python = ">=3.12"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

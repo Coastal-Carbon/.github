@@ -1,0 +1,40 @@
+# Reusable workflow: call it from any Coastal-Carbon repo with
+#   jobs:
+#     check:
+#       uses: Coastal-Carbon/.github/.github/workflows/pr-description.yml@main
+# on pull_request events (opened, edited, synchronize, reopened).
+name: PR description
+
+on:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  human-summary:
+    name: Human summary above the marker
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: Coastal-Carbon/.github
+          ref: main
+          path: dot-github
+      - name: Check the PR body
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: python3 dot-github/scripts/check_pr_body.py --author-type "${{ github.event.pull_request.user.type }}"
+
+  agent-instructions:
+    name: AGENTS.md present, CLAUDE.md imports it
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: Coastal-Carbon/.github
+          ref: main
+          path: dot-github
+      - name: Check the agent-instruction files
+        run: python3 dot-github/scripts/check_agent_files.py .
